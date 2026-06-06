@@ -765,6 +765,4 @@ if __name__ == "__main__":
         )
 
     app = ConverterApp()
-    root.update_idletasks()
-    root.update()
     app.mainloop()
