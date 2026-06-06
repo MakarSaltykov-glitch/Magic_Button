@@ -25,19 +25,27 @@ jobs:
     - name: Build Windows EXE
       run: python build_windows.py
 
-    - name: Upload to artifacts
+    - name: Install NSIS
+      run: |
+        $nsis_url = "https://sourceforge.net/projects/nsis/files/NSIS%203/3.09/nsis-3.09-setup.exe/download"
+        Invoke-WebRequest -Uri $nsis_url -OutFile nsis-installer.exe
+        & .\nsis-installer.exe /S
+        del nsis-installer.exe
+      shell: powershell
+
+    - name: Build Windows Installer
+      run: |
+        & "C:\Program Files (x86)\NSIS\makensis.exe" /V2 installer.nsi
+      shell: powershell
+
+    - name: Upload EXE to artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: MagicButton-Windows
+        name: MagicButton-Windows-EXE
         path: dist/MagicButton.exe
 
-    - name: Create Release
-      if: startsWith(github.ref, 'refs/tags/')
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Upload Installer to artifacts
+      uses: actions/upload-artifact@v3
       with:
-        tag_name: ${{ github.ref_name }}
-        release_name: Release ${{ github.ref_name }}
-        draft: false
-        prerelease: false
+        name: MagicButton-Windows-Installer
+        path: MagicButton-Installer.exe
