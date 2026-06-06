@@ -2,7 +2,7 @@
 
 > Быстрый и простой конвертер таблиц между Word и Excel для Windows и macOS
 
-![Version](https://img.shields.io/badge/version-2.0-blue)
+![Version](https://img.shields.io/badge/version-2.1-blue)
 ![Platforms](https://img.shields.io/badge/platform-Windows%20%7C%20macOS-brightblue)
 ![Python](https://img.shields.io/badge/python-3.7+-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-green)
@@ -41,28 +41,31 @@
 
 ## 🚀 Быстрая установка (БЕЗ Python!)
 
-### Вариант 1️⃣: Скачать готовое приложение (САМЫЙ ПРОСТОЙ)
+### 📥 Скачайте готовое приложение (САМЫЙ ПРОСТОЙ СПОСОБ)
 
-#### Windows
-1. Скачайте `MagicButton.exe` из [GitHub Releases](https://github.com/MakarSaltykov-glitch/Magic_Button/releases)
-2. Дважды нажмите на файл
-3. Готово! ✅
-
-**Никакой установки Python не нужно!**
-
-#### macOS
-1. Скачайте `MagicButton.app.zip` из [GitHub Releases](https://github.com/MakarSaltykov-glitch/Magic_Button/releases)
-2. Разархивируйте файл
-3. Перетащите `MagicButton.app` в папку `Applications`
+#### 🍎 macOS (10.13+)
+```bash
+# Способ 1: DMG Installer (рекомендуется)
+1. Скачайте MagicButton-installer.dmg
+2. Откройте DMG файл
+3. Перетащите MagicButton в Applications
 4. Готово! ✅
 
-**Никакой установки Python не нужно!**
+# Способ 2: Прямой запуск
+1. Скачайте MagicButton.app
+2. Right-click → Open (первый раз)
+3. Готово! ✅
+```
 
----
+#### 🪟 Windows (7/8/10/11)
+```bash
+1. Скачайте MagicButton.exe из Release
+2. Двойной клик на файл
+3. Готово! ✅
+```
 
-### Вариант 2️⃣: Установить с Python (для разработчиков)
-
-### Вариант 2️⃣: Установить с Python (для разработчиков)
+**📌 Никакой установки Python не нужно!**  
+**📌 Приложение готово к использованию сразу после скачивания!**
 
 Если вы хотите запустить из исходного кода:
 

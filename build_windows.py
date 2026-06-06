@@ -8,6 +8,7 @@ Creates: dist/MagicButton.exe (standalone executable for Windows)
 import os
 import sys
 import subprocess
+import shutil
 from pathlib import Path
 
 
@@ -20,13 +21,27 @@ def main():
     # Check if PyInstaller is installed
     try:
         import PyInstaller
+        print(f"✓ PyInstaller {PyInstaller.__version__} found")
     except ImportError:
         print("❌ PyInstaller not found!")
         print("Installing PyInstaller...")
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "pyinstaller>=6.0.0"])
+        try:
+            subprocess.check_call([sys.executable, "-m", "pip", "install", "pyinstaller>=6.0.0"])
+            import PyInstaller
+            print(f"✓ PyInstaller {PyInstaller.__version__} installed")
+        except Exception as e:
+            print(f"❌ Failed to install PyInstaller: {e}")
+            sys.exit(1)
     
     project_dir = Path(__file__).parent
     os.chdir(project_dir)
+    
+    # Clean old builds
+    print("🧹 Cleaning old builds...")
+    if Path("build").exists():
+        shutil.rmtree("build")
+    if Path("dist/MagicButton.exe").exists():
+        Path("dist/MagicButton.exe").unlink()
     
     print("📦 Building Windows EXE...")
     print()
@@ -39,13 +54,8 @@ def main():
         "--onefile",
         "--windowed",
         "--name", "MagicButton",
-        "--icon=NONE",
-        "--add-data", f".:.",
         "docx_tables_to_excel_app.py",
     ]
-    
-    print(f"Command: {' '.join(cmd)}")
-    print()
     
     result = subprocess.run(cmd)
     
@@ -56,11 +66,13 @@ def main():
             print("✅ BUILD SUCCESSFUL!")
             print()
             print(f"📍 Location: {exe_path}")
-            print(f"📊 Size: {exe_path.stat().st_size / (1024*1024):.1f} MB")
+            size_mb = exe_path.stat().st_size / (1024*1024)
+            print(f"📊 Size: {size_mb:.1f} MB")
             print()
             print("🚀 You can now:")
             print(f"   1. Share {exe_path.name} with other Windows users")
             print("   2. They can just double-click it to run (no Python needed!)")
+            print("   3. Or upload to GitHub Releases")
             print()
         else:
             print("❌ EXE file not found after build!")
@@ -72,3 +84,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
