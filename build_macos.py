@@ -8,6 +8,7 @@ Creates: dist/MagicButton.app (standalone app for macOS)
 import os
 import sys
 import subprocess
+import shutil
 from pathlib import Path
 
 
@@ -23,24 +24,30 @@ def main():
         print(f"Your platform: {sys.platform}")
         sys.exit(1)
     
-    # Check if PyInstaller is installed
-    try:
-        import PyInstaller
-    except ImportError:
-        print("❌ PyInstaller not found!")
-        print("Installing PyInstaller...")
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "pyinstaller>=6.0.0"])
+    # Check if pyinstaller command is available
+    if not shutil.which("pyinstaller"):
+        print("❌ PyInstaller not found in PATH!")
+        print("\n💡 Install with:")
+        print("   pipx install pyinstaller")
+        print("\nOr ensure /Users/makar/.local/bin is in your PATH")
+        sys.exit(1)
     
     project_dir = Path(__file__).parent
     os.chdir(project_dir)
+    
+    # Clean old builds
+    print("🧹 Cleaning old builds...")
+    if Path("build").exists():
+        shutil.rmtree("build")
+    if Path("dist/MagicButton.app").exists():
+        shutil.rmtree("dist/MagicButton.app")
     
     print("🍎 Building macOS APP...")
     print()
     
     # PyInstaller command for macOS
     cmd = [
-        sys.executable,
-        "-m", "PyInstaller",
+        "pyinstaller",
         "--noconfirm",
         "--onefile",
         "--windowed",
@@ -48,9 +55,6 @@ def main():
         "--osx-bundle-identifier", "com.makar.magicbutton",
         "docx_tables_to_excel_app.py",
     ]
-    
-    print(f"Command: {' '.join(cmd)}")
-    print()
     
     result = subprocess.run(cmd)
     
@@ -61,7 +65,8 @@ def main():
             print("✅ BUILD SUCCESSFUL!")
             print()
             print(f"📍 Location: {app_path}")
-            print(f"📊 Size: {sum(f.stat().st_size for f in app_path.rglob('*')) / (1024*1024):.1f} MB")
+            total_size = sum(f.stat().st_size for f in app_path.rglob('*'))
+            print(f"📊 Size: {total_size / (1024*1024):.1f} MB")
             print()
             print("🚀 You can now:")
             print(f"   1. Copy {app_path.name} to Applications folder")
