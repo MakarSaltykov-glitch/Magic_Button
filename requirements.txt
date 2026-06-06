@@ -1,3 +1,4 @@
 python-docx
 pandas
 openpyxl
+pyinstaller>=6.0.0

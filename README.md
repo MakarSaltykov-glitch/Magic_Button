@@ -1,14 +1,20 @@
 # Magic Button: Word ↔ Excel
 
-> Быстрый и простой конвертер таблиц между Word и Excel для Windows
+> Быстрый и простой конвертер таблиц между Word и Excel для Windows и macOS
 
 ![Version](https://img.shields.io/badge/version-2.0-blue)
+![Platforms](https://img.shields.io/badge/platform-Windows%20%7C%20macOS-brightblue)
 ![Python](https://img.shields.io/badge/python-3.7+-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 ## 🎯 Что это?
 
-**Magic Button** - это Windows-приложение, которое помогает переносить таблицы между документами Word (.docx) и электронными таблицами Excel (.xlsx) одним нажатием кнопки.
+**Magic Button** - это приложение для переноса таблиц между документами Word (.docx) и электронными таблицами Excel (.xlsx) одним нажатием кнопки.
+
+✅ **Работает на Windows и macOS**  
+✅ **Не требует установки Python** (готовые приложения)  
+✅ **Простой интерфейс** - просто нажимай кнопки  
+✅ **Бесплатное и открытое** - MIT лицензия  
 
 Идеально для:
 - 📋 Быстрого преобразования отчетов и данных
@@ -33,13 +39,32 @@
 - Автоматически удаляет пустые столбцы
 - Аккуратно форматирует текст
 
-## 🚀 Быстрый старт
+## 🚀 Быстрая установка (БЕЗ Python!)
 
-### Требования
-- Windows 7/8/10/11
-- Python 3.7+ (с галочкой "Add Python to PATH" при установке)
+### Вариант 1️⃣: Скачать готовое приложение (САМЫЙ ПРОСТОЙ)
 
-### Установка
+#### Windows
+1. Скачайте `MagicButton.exe` из [GitHub Releases](https://github.com/MakarSaltykov-glitch/Magic_Button/releases)
+2. Дважды нажмите на файл
+3. Готово! ✅
+
+**Никакой установки Python не нужно!**
+
+#### macOS
+1. Скачайте `MagicButton.app.zip` из [GitHub Releases](https://github.com/MakarSaltykov-glitch/Magic_Button/releases)
+2. Разархивируйте файл
+3. Перетащите `MagicButton.app` в папку `Applications`
+4. Готово! ✅
+
+**Никакой установки Python не нужно!**
+
+---
+
+### Вариант 2️⃣: Установить с Python (для разработчиков)
+
+### Вариант 2️⃣: Установить с Python (для разработчиков)
+
+Если вы хотите запустить из исходного кода:
 
 1. **Скачайте проект:**
    ```bash
@@ -47,60 +72,81 @@
    cd Magic_Button
    ```
 
-2. **Установите зависимости** (первый раз):
-   - Дважды нажмите файл `install_requirements.bat`
-   - Дождитесь окончания установки
-   - Закройте окно
+2. **Установите Python** (если ещё нет):
+   - Windows: https://www.python.org/downloads/
+   - macOS: `brew install python3`
 
-3. **Запустите программу:**
-   - Дважды нажмите файл `run_docx_tables_app.bat`
-   - Выберите нужный режим
-   - Укажите файлы и нажмите "Начать"
+3. **Установите зависимости:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Запустите программу:**
+   - Windows: `run_docx_tables_app.bat` (двойной клик)
+   - macOS: `python3 docx_tables_to_excel_app.py`
+
+---
 
 ## 📖 Как использовать
 
 ### Word → Excel
 
 ```
-1. Откройте программу (двойной клик по run_docx_tables_app.bat)
+1. Откройте программу
 2. Перейдите на вкладку "📄 Word → Excel"
 3. Нажмите "Выбрать" и укажите папку с файлами .docx
 4. Нажмите "Сохранить как" и выберите имя для файла .xlsx
 5. Нажмите "Начать: Word → Excel"
-6. Смотрите ход работы в журнале
-7. Дождитесь сообщения "Готово"
+6. Дождитесь сообщения "Готово"
 ```
 
-**Результат:** В выходном Excel-файле будет столько листов, сколько всего таблиц найдено во всех Word-файлах.
+**Результат:** В Excel-файле будет столько листов, сколько таблиц найдено.
 
 ### Excel → Word
 
 ```
-1. Откройте программу (двойной клик по run_docx_tables_app.bat)
+1. Откройте программу
 2. Перейдите на вкладку "📊 Excel → Word"
 3. Нажмите "Выбрать" и укажите .xlsx файл
 4. Нажмите "Сохранить как" и выберите имя для файла .docx
 5. Нажмите "Начать: Excel → Word"
-6. Смотрите ход работы в журнале
-7. Дождитесь сообщения "Готово"
+6. Дождитесь сообщения "Готово"
 ```
 
 **Результат:** Word-файл с таблицами из всех листов Excel.
 
-## 🔧 Сборка EXE
+---
 
-Чтобы создать standalone .exe файл:
+## 🔨 Сборка собственных приложений
 
-1. Убедитесь, что установлены все зависимости:
-   ```bash
-   pip install -r requirements.txt pyinstaller
-   ```
+### Для Windows (создать EXE)
 
-2. Запустите скрипт сборки:
-   - На Windows: дважды нажмите `build_exe.bat`
-   - Или в терминале: `python -m PyInstaller --noconfirm --onefile --windowed --name MagicButton docx_tables_to_excel_app.py`
+```bash
+# Способ 1: Простой скрипт
+python build_windows.py
 
-3. Готовый exe файл будет в папке `dist\MagicButton.exe`
+# Или запустить из-под Windows:
+build_windows_installer.bat
+```
+
+Готовый файл будет в `dist/MagicButton.exe`
+
+### Для macOS (создать APP)
+
+```bash
+# Запустить скрипт
+bash build_macos_installer.sh
+```
+
+Готовый файл будет в `dist/MagicButton.app`
+
+### Создать DMG для распространения на macOS
+
+```bash
+bash create_dmg.sh
+```
+
+Готовый файл: `MagicButton-installer.dmg`
 
 ## 📦 Структура проекта
 
@@ -201,16 +247,79 @@ MIT License - смотрите файл LICENSE для деталей
 
 ## Важные заметки
 
-- Программа работает только с `.docx` и `.xlsx`.
-- Старые файлы Word `.doc` и Excel `.xls` не поддерживаются.
-- Если итоговый Word или Excel-файл уже открыт, закройте его перед запуском программы.
-- Если в папке нет `.docx`, программа покажет ошибку.
-- Если в документе нет таблиц, программа напишет об этом в журнале.
+## 📋 Системные требования
 
-## Какие файлы здесь есть
+### Для готового приложения (EXE / APP)
+- **Windows:** Windows 7, 8, 10, 11 (64-bit)
+- **macOS:** macOS 10.13+ (Intel или Apple Silicon)
+- **Никакие дополнительные программы не требуются**
 
-- `docx_tables_to_excel_app.py` - сама программа с интерфейсом.
-- `run_docx_tables_app.bat` - запуск программы на Windows.
-- `install_requirements.bat` - установка нужных библиотек.
-- `build_exe.bat` - сборка обычного `.exe` файла на Windows.
-- `requirements.txt` - список библиотек Python.
+### Для запуска из исходного кода
+- Python 3.7 или выше
+- Библиотеки: python-docx, pandas, openpyxl
+
+## ⚠️ Важно знать
+
+- ✅ Поддерживаются только `.docx` и `.xlsx` (новые форматы)
+- ❌ Старые форматы `.doc` и `.xls` **не поддерживаются**
+- ✅ Работает с таблицами любого размера
+- ✅ Автоматически пропускает пустые таблицы и листы
+- ✅ Обрабатывает поврежденные файлы без краша
+- 📝 Весь процесс логируется в окне программы
+- 🔒 Исходные файлы не изменяются
+
+## 🐛 Решение проблем
+
+| Проблема | Решение |
+|----------|---------|
+| "tkinter not found" | При установке Python поставьте галочку "tcl/tk and IDLE" |
+| "No module named 'docx'" | Запустите `install_requirements.bat` или `pip install -r requirements.txt` |
+| "Access denied" при сохранении | Закройте файл в Excel/Word перед конвертацией |
+| Программа не запускается | Убедитесь что Python установлен в PATH |
+| EXE не создается | Установите PyInstaller: `pip install pyinstaller` |
+
+## 📦 Структура проекта
+
+```
+Magic_Button/
+├── docx_tables_to_excel_app.py      # Основная программа (650+ строк)
+├── build_windows.py                  # Сборка Windows EXE
+├── build_macos.py                    # Сборка macOS APP
+├── build_windows_installer.bat       # Installer для Windows
+├── build_macos_installer.sh          # Installer для macOS
+├── create_dmg.sh                     # Создание DMG для macOS
+├── requirements.txt                  # Python зависимости
+├── README.md                         # Этот файл
+├── USAGE.md                          # Подробное руководство
+├── CHANGELOG.md                      # История версий
+└── LICENSE                           # MIT лицензия
+```
+
+## 🔗 Зависимости
+
+### Runtime (встроено в приложение)
+- **python-docx** - работа с Word документами
+- **pandas** - работа с таблицами данных
+- **openpyxl** - работа с Excel файлами
+- **tkinter** - графический интерфейс (встроен в Python)
+
+### Build (для сборки из исходного кода)
+- **PyInstaller** - создание standalone приложений
+
+## 📝 Лицензия
+
+MIT License - смотрите файл [LICENSE](LICENSE) для деталей
+
+## 👨‍💻 Автор
+
+[MakarSaltykov-glitch](https://github.com/MakarSaltykov-glitch)
+
+## 💡 Помощь и обратная связь
+
+- ❓ **Вопросы?** Создайте [Issue](https://github.com/MakarSaltykov-glitch/Magic_Button/issues)
+- 💬 **Идеи?** Предложите улучшение через [Discussions](https://github.com/MakarSaltykov-glitch/Magic_Button/discussions)
+- ⭐ **Нравится?** Поставьте звездочку!
+
+---
+
+**Magic Button v2.0** © 2024 | Сделано с ❤️ для удобства работы с документами

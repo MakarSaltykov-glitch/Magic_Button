@@ -1,11 +1,11 @@
 from __future__ import annotations
 
+import re
+import threading
 from datetime import date, datetime, time
 from decimal import Decimal
 from pathlib import Path
 from queue import Queue
-import re
-import threading
 from typing import Callable
 
 import pandas as pd
@@ -295,7 +295,7 @@ class ConverterApp(tk.Tk):
         self.word_tab = ttk.Frame(self.notebook, padding=12)
         self.excel_tab = ttk.Frame(self.notebook, padding=12)
         self.info_tab = ttk.Frame(self.notebook, padding=16)
-        
+
         self.notebook.add(self.word_tab, text="📄 Word → Excel")
         self.notebook.add(self.excel_tab, text="📊 Excel → Word")
         self.notebook.add(self.info_tab, text="ℹ️ Справка")
@@ -324,7 +324,9 @@ class ConverterApp(tk.Tk):
         self.progress_bar = ttk.Progressbar(control_frame, mode="indeterminate")
         self.progress_bar.grid(row=0, column=1, padx=(12, 0), sticky="ew")
 
-        ttk.Label(work_frame, text="Журнал обработки").grid(row=1, column=0, pady=(14, 4), sticky="w")
+        ttk.Label(work_frame, text="Журнал обработки").grid(
+            row=1, column=0, pady=(14, 4), sticky="w"
+        )
 
         log_frame = ttk.Frame(work_frame, borderwidth=1, relief="solid")
         log_frame.grid(row=2, column=0, sticky="nsew")
@@ -343,12 +345,20 @@ class ConverterApp(tk.Tk):
         )
         self.log_text.grid(row=0, column=0, sticky="nsew")
 
-        scrollbar = ttk.Scrollbar(log_frame, orient="vertical", command=self.log_text.yview)
+        scrollbar = ttk.Scrollbar(
+            log_frame, orient="vertical", command=self.log_text.yview
+        )
         scrollbar.grid(row=0, column=1, sticky="ns")
         self.log_text.configure(yscrollcommand=scrollbar.set)
 
         self.status_var = tk.StringVar(value="Готово к работе")
-        status_bar = ttk.Label(self, textvariable=self.status_var, relief="sunken", anchor="w", padding=(8, 3))
+        status_bar = ttk.Label(
+            self,
+            textvariable=self.status_var,
+            relief="sunken",
+            anchor="w",
+            padding=(8, 3),
+        )
         status_bar.grid(row=3, column=0, sticky="ew")
 
     def _configure_style(self) -> None:
@@ -359,8 +369,12 @@ class ConverterApp(tk.Tk):
         elif "clam" in self.style.theme_names():
             self.style.theme_use("clam")
 
-        self.style.configure("Title.TLabel", font=("Segoe UI", 20, "bold"), foreground="#0078D4")
-        self.style.configure("Subtitle.TLabel", font=("Segoe UI", 11), foreground="#606060")
+        self.style.configure(
+            "Title.TLabel", font=("Segoe UI", 20, "bold"), foreground="#0078D4"
+        )
+        self.style.configure(
+            "Subtitle.TLabel", font=("Segoe UI", 11), foreground="#606060"
+        )
         self.style.configure("Accent.TButton", font=("Segoe UI", 11, "bold"))
 
     def _build_menu(self) -> None:
@@ -379,14 +393,20 @@ class ConverterApp(tk.Tk):
     def _build_word_tab(self) -> None:
         self.word_tab.columnconfigure(1, weight=1)
 
-        ttk.Label(self.word_tab, text="Папка с Word-файлами .docx:", font=("Segoe UI", 10, "bold")).grid(
+        ttk.Label(
+            self.word_tab,
+            text="Папка с Word-файлами .docx:",
+            font=("Segoe UI", 10, "bold"),
+        ).grid(
             row=0,
             column=0,
             padx=(0, 8),
             pady=6,
             sticky="w",
         )
-        ttk.Entry(self.word_tab, textvariable=self.word_folder_var).grid(row=0, column=1, pady=6, sticky="ew")
+        ttk.Entry(self.word_tab, textvariable=self.word_folder_var).grid(
+            row=0, column=1, pady=6, sticky="ew"
+        )
         ttk.Button(self.word_tab, text="Выбрать", command=self.choose_word_folder).grid(
             row=0,
             column=2,
@@ -394,15 +414,23 @@ class ConverterApp(tk.Tk):
             pady=6,
         )
 
-        ttk.Label(self.word_tab, text="Куда сохранить Excel .xlsx:", font=("Segoe UI", 10, "bold")).grid(
+        ttk.Label(
+            self.word_tab,
+            text="Куда сохранить Excel .xlsx:",
+            font=("Segoe UI", 10, "bold"),
+        ).grid(
             row=1,
             column=0,
             padx=(0, 8),
             pady=6,
             sticky="w",
         )
-        ttk.Entry(self.word_tab, textvariable=self.word_output_var).grid(row=1, column=1, pady=6, sticky="ew")
-        ttk.Button(self.word_tab, text="Сохранить как", command=self.choose_word_output).grid(
+        ttk.Entry(self.word_tab, textvariable=self.word_output_var).grid(
+            row=1, column=1, pady=6, sticky="ew"
+        )
+        ttk.Button(
+            self.word_tab, text="Сохранить как", command=self.choose_word_output
+        ).grid(
             row=1,
             column=2,
             padx=(8, 0),
@@ -412,14 +440,18 @@ class ConverterApp(tk.Tk):
     def _build_excel_tab(self) -> None:
         self.excel_tab.columnconfigure(1, weight=1)
 
-        ttk.Label(self.excel_tab, text="Excel-файл .xlsx:", font=("Segoe UI", 10, "bold")).grid(
+        ttk.Label(
+            self.excel_tab, text="Excel-файл .xlsx:", font=("Segoe UI", 10, "bold")
+        ).grid(
             row=0,
             column=0,
             padx=(0, 8),
             pady=6,
             sticky="w",
         )
-        ttk.Entry(self.excel_tab, textvariable=self.excel_file_var).grid(row=0, column=1, pady=6, sticky="ew")
+        ttk.Entry(self.excel_tab, textvariable=self.excel_file_var).grid(
+            row=0, column=1, pady=6, sticky="ew"
+        )
         ttk.Button(self.excel_tab, text="Выбрать", command=self.choose_excel_file).grid(
             row=0,
             column=2,
@@ -427,15 +459,23 @@ class ConverterApp(tk.Tk):
             pady=6,
         )
 
-        ttk.Label(self.excel_tab, text="Куда сохранить Word .docx:", font=("Segoe UI", 10, "bold")).grid(
+        ttk.Label(
+            self.excel_tab,
+            text="Куда сохранить Word .docx:",
+            font=("Segoe UI", 10, "bold"),
+        ).grid(
             row=1,
             column=0,
             padx=(0, 8),
             pady=6,
             sticky="w",
         )
-        ttk.Entry(self.excel_tab, textvariable=self.excel_output_var).grid(row=1, column=1, pady=6, sticky="ew")
-        ttk.Button(self.excel_tab, text="Сохранить как", command=self.choose_excel_output).grid(
+        ttk.Entry(self.excel_tab, textvariable=self.excel_output_var).grid(
+            row=1, column=1, pady=6, sticky="ew"
+        )
+        ttk.Button(
+            self.excel_tab, text="Сохранить как", command=self.choose_excel_output
+        ).grid(
             row=1,
             column=2,
             padx=(8, 0),
@@ -446,23 +486,36 @@ class ConverterApp(tk.Tk):
         """Build information/help tab."""
         self.info_tab.columnconfigure(0, weight=1)
         self.info_tab.rowconfigure(1, weight=1)
-        
-        ttk.Label(self.info_tab, text="Как пользоваться Magic Button", 
-                  font=("Segoe UI", 14, "bold"), foreground="#0078D4").pack(anchor="w", pady=(0, 12))
-        
+
+        ttk.Label(
+            self.info_tab,
+            text="Как пользоваться Magic Button",
+            font=("Segoe UI", 14, "bold"),
+            foreground="#0078D4",
+        ).pack(anchor="w", pady=(0, 12))
+
         text_frame = ttk.Frame(self.info_tab)
         text_frame.pack(fill="both", expand=True)
         text_frame.columnconfigure(0, weight=1)
         text_frame.rowconfigure(0, weight=1)
-        
-        info_text = tk.Text(text_frame, wrap="word", font=("Segoe UI", 10), 
-                           height=20, state="normal", relief="solid", borderwidth=1)
+
+        info_text = tk.Text(
+            text_frame,
+            wrap="word",
+            font=("Segoe UI", 10),
+            height=20,
+            state="normal",
+            relief="solid",
+            borderwidth=1,
+        )
         info_text.grid(row=0, column=0, sticky="nsew")
-        
-        scrollbar = ttk.Scrollbar(text_frame, orient="vertical", command=info_text.yview)
+
+        scrollbar = ttk.Scrollbar(
+            text_frame, orient="vertical", command=info_text.yview
+        )
         scrollbar.grid(row=0, column=1, sticky="ns")
         info_text.configure(yscrollcommand=scrollbar.set)
-        
+
         help_text = """РЕЖИМ 1: WORD → EXCEL
 Перенос таблиц из Word-файлов в Excel
 
@@ -508,7 +561,7 @@ class ConverterApp(tk.Tk):
 • Текстовые файлы .doc и .xls не поддерживаются
 • В случае ошибки смотрите журнал обработки внизу окна
 """
-        
+
         info_text.insert("1.0", help_text)
         info_text.configure(state="disabled")
 
@@ -555,26 +608,36 @@ class ConverterApp(tk.Tk):
             output_path = Path(self.word_output_var.get().strip())
 
             if not input_path.exists() or not input_path.is_dir():
-                messagebox.showerror(APP_TITLE, "Выберите существующую папку с .docx-файлами.")
+                messagebox.showerror(
+                    APP_TITLE, "Выберите существующую папку с .docx-файлами."
+                )
                 return
 
             if output_path.suffix.lower() != ".xlsx":
-                messagebox.showerror(APP_TITLE, "Выходной файл должен иметь расширение .xlsx.")
+                messagebox.showerror(
+                    APP_TITLE, "Выходной файл должен иметь расширение .xlsx."
+                )
                 return
         else:
             input_path = Path(self.excel_file_var.get().strip())
             output_path = Path(self.excel_output_var.get().strip())
 
             if not input_path.exists() or not input_path.is_file():
-                messagebox.showerror(APP_TITLE, "Выберите существующий Excel-файл .xlsx.")
+                messagebox.showerror(
+                    APP_TITLE, "Выберите существующий Excel-файл .xlsx."
+                )
                 return
 
             if input_path.suffix.lower() != ".xlsx":
-                messagebox.showerror(APP_TITLE, "Входной файл должен иметь расширение .xlsx.")
+                messagebox.showerror(
+                    APP_TITLE, "Входной файл должен иметь расширение .xlsx."
+                )
                 return
 
             if output_path.suffix.lower() != ".docx":
-                messagebox.showerror(APP_TITLE, "Выходной файл должен иметь расширение .docx.")
+                messagebox.showerror(
+                    APP_TITLE, "Выходной файл должен иметь расширение .docx."
+                )
                 return
 
         self._clear_log()
@@ -665,7 +728,7 @@ class ConverterApp(tk.Tk):
 
         mode = self._current_mode()
         selected_index = self.notebook.index(self.notebook.select())
-        
+
         if selected_index >= 2:
             self.start_button.configure(state="disabled")
             self.start_button.configure(text="Выберите вкладку")

@@ -1,5 +1,7 @@
 # Руководство пользователя Magic Button
 
+**Для быстрой установки без Python смотрите [INSTALLATION.md](INSTALLATION.md)**
+
 ## Содержание
 1. [Установка](#установка)
 2. [Использование](#использование)
@@ -9,7 +11,22 @@
 
 ## Установка
 
-### Шаг 1: Установка Python
+### ⚡ Самый простой способ (БЕЗ Python)
+
+**Windows:**
+1. [Скачайте MagicButton.exe](https://github.com/MakarSaltykov-glitch/Magic_Button/releases)
+2. Дважды нажмите на файл
+3. Готово! ✅
+
+**macOS:**
+1. [Скачайте MagicButton.app.zip](https://github.com/MakarSaltykov-glitch/Magic_Button/releases)
+2. Разархивируйте файл
+3. Перетащите MagicButton.app в Applications
+4. Готово! ✅
+
+### Способ 2: Установка с Python (для разработчиков)
+
+#### Шаг 1: Установка Python
 
 Если Python не установлен:
 1. Перейдите на https://www.python.org/downloads/
@@ -17,37 +34,45 @@
 3. **ВАЖНО:** При установке поставьте галочку **"Add Python to PATH"**
 4. Завершите установку
 
-### Шаг 2: Установка зависимостей
+#### Шаг 2: Установка зависимостей
 
+**Windows:**
 1. Откройте папку с программой
 2. Дважды нажмите на файл `install_requirements.bat`
-3. Дождитесь завершения установки (может занять 1-2 минуты)
+3. Дождитесь завершения установки
 4. Закройте окно
+
+**macOS/Linux:**
+```bash
+pip3 install -r requirements.txt
+```
 
 ## Использование
 
 ### Запуск программы
 
-Дважды нажмите на файл `run_docx_tables_app.bat`
+**Windows:** Дважды нажмите на файл `run_docx_tables_app.bat` или `MagicButton.exe`
 
-Должно открыться окно приложения Magic Button с двумя вкладками.
+**macOS:** Дважды нажмите на `MagicButton.app`
+
+Должно открыться окно приложения Magic Button с тремя вкладками.
 
 ### Основное окно
 
 ```
 ┌─────────────────────────────────────────┐
-│       Magic Button: Word и Excel        │
+│       Magic Button: Word ↔ Excel        │
 │  Конвертер таблиц между Word и Excel   │
 ├─────────────────────────────────────────┤
-│ [📄 Word → Excel] [📊 Excel → Word] [ℹ️ Справка]
+│ [📄 Word→Excel] [📊 Excel→Word] [ℹ️ Справка]
 ├─────────────────────────────────────────┤
 │ Папка с Word-файлами .docx:             │
-│ /home/user/Documents    [Выбрать]      │
+│ /Users/name/Documents   [Выбрать]      │
 │                                         │
 │ Куда сохранить Excel .xlsx:             │
-│ /home/user/tables.xlsx   [Сохранить]   │
+│ /Users/name/tables.xlsx  [Сохранить]   │
 ├─────────────────────────────────────────┤
-│ [Начать: Word → Excel] [███░░░░░░░░░░]│
+│ [Начать: Word→Excel] [████████░░░░░░]│
 ├─────────────────────────────────────────┤
 │ Журнал обработки:                       │
 │ ───────────────────────────────────────│
@@ -88,7 +113,7 @@
 - Входные файлы:
   - `/Documents/reports/report1.docx` (содержит 3 таблицы)
   - `/Documents/reports/report2.docx` (содержит 1 таблицу)
-  
+
 - Результат: `tables.xlsx` с 4 листами
   - Лист 1: таблица из report1.docx
   - Лист 2: таблица из report1.docx
@@ -122,7 +147,7 @@
   - Лист "Sales"
   - Лист "Expenses"
   - Лист "Summary"
-  
+
 - Результат: `report.docx` с 3 таблицами
   - Таблица "Sales"
   - Таблица "Expenses"
